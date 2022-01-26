@@ -5,9 +5,9 @@
 const { DataTypes, Model } = require('sequelize');
 
 // 创建user模型 继承Model
-class User extends Model { }
+class Code extends Model { }
 // 两个参数 表字段 配置
-User.init({
+Code.init({
   // 表id
   id: {
     //数据类型 整形 无符号 
@@ -22,13 +22,13 @@ User.init({
     comment: "表Id"
   },
 
-  userId: {
+  code: {
     type: DataTypes.STRING(30),
     // 不能为Null
     allowNull: false,
     defaultValue: "",
     // 备注
-    comment: "用户Id"
+    comment: "验证码"
   },
   email: {
     type: DataTypes.STRING(50),
@@ -38,24 +38,8 @@ User.init({
     // 备注
     comment: "邮箱"
   },
-  nickname: {
-    type: DataTypes.STRING(30),
-    // 不能为Null
-    allowNull: false,
-    defaultValue: "",
-    // 备注
-    comment: "昵称"
-  },
-  password: {
-    type: DataTypes.STRING(32),
-    // 不能为Null
-    allowNull: false,
-    defaultValue: "",
-    // 备注
-    comment: "密码"
-  },
 }, {
-  modelName: 'user',
+  modelName: 'code',
   // 是否添加时间戳属性
   timestamps: true,
   // 逻辑删除      物理删除
@@ -71,7 +55,7 @@ User.init({
 
 // force:true
 // force:false 如果存在则不创建新表 否则创建新表
-User.sync({ force: false });
+Code.sync({ force: false });
 
 // 导出模型
-module.exports = User;
+module.exports = Code;

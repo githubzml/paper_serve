@@ -24,5 +24,7 @@ module.exports = (app) => {
     res.send("访问成功a")
   })
 
-  app.get('/register', routerController.register);
+  app.post('/register', routerController.register);
+
+  app.post('/code', routerController.getCode);
 }

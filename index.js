@@ -14,6 +14,7 @@ global.__basename = __dirname
 // 导入数据库连接
 global.sequelize = require("./db/connect");
 
+// 全局模型
 global.Model = require("./db/model/model");
 
 // 1.导入路由
