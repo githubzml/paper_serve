@@ -23,6 +23,9 @@ let routes = require("./routes/routes");
 // 访问静态文件
 // app.use(express.static('static'))
 
+// 访问静态文件
+app.use(express.static('upload'))
+
 // 设置模板路径
 // views 文件夹名称
 app.set("views", path.resolve(__dirname, "views"))

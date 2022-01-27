@@ -23,8 +23,17 @@ module.exports = (app) => {
 
     res.send("访问成功a")
   })
+  // 验证验证码
+  app.use(routerController.validCode);
 
+  app.use(routerController.validLogin);
+
+  // 注册
   app.post('/register', routerController.register);
-
+  // 验证码
   app.post('/code', routerController.getCode);
+  // 登录
+  app.post('/login', routerController.login);
+  // 获取用户信息
+  app.post('/userInfo', routerController.getUserInfo);
 }

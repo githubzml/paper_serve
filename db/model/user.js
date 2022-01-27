@@ -38,6 +38,7 @@ User.init({
     // 备注
     comment: "邮箱"
   },
+  // 昵称
   nickname: {
     type: DataTypes.STRING(30),
     // 不能为Null
@@ -46,6 +47,7 @@ User.init({
     // 备注
     comment: "昵称"
   },
+  //密码
   password: {
     type: DataTypes.STRING(32),
     // 不能为Null
@@ -53,6 +55,12 @@ User.init({
     defaultValue: "",
     // 备注
     comment: "密码"
+  },
+  url: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    defaultValue: "http://localhost:3000/default.png",
+    comment: "用户头像"
   },
 }, {
   modelName: 'user',

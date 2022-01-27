@@ -1,11 +1,9 @@
 // 导入加密模块
-
 let crypto = require("crypto");
 
 let nodemailer = require("nodemailer");
 
 // 创建发邮件配置
-
 var transporter = nodemailer.createTransport({
   // 主机
   host: "smtp.163.com",
@@ -19,6 +17,8 @@ var transporter = nodemailer.createTransport({
   }
 })
 
+// 导入 jsonwebtoken 模块
+let jsonwebtoken = require("jsonwebtoken");
 class Utils {
   // 加密字符串
   encodingString(value) {
@@ -36,6 +36,28 @@ class Utils {
       subject: "邮箱验证", //主题
       text: `邮箱验证码为${code},5分钟内有效！啪_标记下_是我发的` //邮箱内容
     }, fn)
+  }
+  // 生成token
+  // 加盐 强化加密方式
+  // 过期时间 过了就无效
+  signToken(value, expires) {
+
+
+    // expiresIn 过期时间
+    // 60 ===> '60s'
+    // "100" ===> "100ms"
+    // "2 days" ===> "2天"
+    // "10h" ===> "10小时"
+    // "7d" ===> "7天"
+
+    // _tsalt 任意的加盐方式
+    return jsonwebtoken.sign({ data: value }, "_tsalt", {
+      expiresIn: expires
+    })
+  }
+
+  verifyToken(value, fn) {
+    return jsonwebtoken.verify(value, "_tsalt", fn)
   }
 }
 
