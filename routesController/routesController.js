@@ -145,10 +145,22 @@ class routesController {
       res.send({ msg: "登录失败", code: 0 });
     })
   }
-
+  // 获取用户信息
   getUserInfo(req, res) {
     // req.userId
-    res.send("获取用户信息ok");
+    // 查询昵称和头像
+    findData("User", {
+      userId: req.userId
+    }, ['nickname', 'url']).then(result => {
+      res.send({ msg: "查询用户信息成功", code: 200, result });
+    }).catch(err => {
+      console.log('err', err);
+      res.send({ msg: "查询用户信息失败", code: 201 });
+    })
+  }
+  // 添加商品类型
+  addType(req, res) {
+    res.send("添加商品类型成功")
   }
 }
 module.exports = new routesController();

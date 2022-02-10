@@ -5,5 +5,6 @@ exports.codeList = [
 
 // 需要验证token 的请求路径
 exports.tokenList = [
-  "/userInfo"
+  "/userInfo",
+  "/addType"
 ];

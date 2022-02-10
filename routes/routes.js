@@ -36,4 +36,6 @@ module.exports = (app) => {
   app.post('/login', routerController.login);
   // 获取用户信息
   app.post('/userInfo', routerController.getUserInfo);
+  //  增加商品类型
+  app.post('/addType', routerController.addType);
 }

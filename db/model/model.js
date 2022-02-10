@@ -4,7 +4,10 @@
 let User = require("./user");
 // 验证码模型
 let Code = require("./code");
+// 商品类型
+let Type = require("./type");
 module.exports = {
   User,
-  Code
+  Code,
+  Type
 }
