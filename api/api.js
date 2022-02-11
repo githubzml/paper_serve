@@ -8,7 +8,7 @@ class API {
   }
   // 查询数据
   findData(modelName, condition, attributes) {
-    
+
     // modelName 模型名称 string
     // condition 查询条件
     // attributes 查询字段 [字段名1，字段名2，...]
@@ -16,6 +16,13 @@ class API {
     return Model[modelName].findAll({
       where: condition,
       attributes,
+    })
+  }
+  // 原始查询
+  query(sql, o) {
+    return sequelize.query(sql, {
+      replacements: o,
+      type: sequelize.QueryTypes.SELECT
     })
   }
 }

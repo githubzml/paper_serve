@@ -1,10 +1,10 @@
 // 路由控制器
 
 let { encodingString, sendEmail, signToken, verifyToken } = require("../utils");
-let { createData, findData } = require("../api/api");
+let { createData, findData, query } = require("../api/api");
 
 // 操作符
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 
 let { codeList, tokenList } = require("../whiteList/whiteList");
 
@@ -44,10 +44,12 @@ class routesController {
   }
 
   validLogin(req, res, next) {
-
-    if (tokenList.includes(req.url)) {
+    let url = req.url.split("?")[0];
+    if (tokenList.includes(url)) {
       // 需要进行token验证的
-      let { token } = req.body;
+      // 截取token
+      let token = req.body.token ? req.body.token : req.query.token;
+
       verifyToken(token, (err, decode) => {
         if (err) {
           res.send({ msg: "请先登录", code: 0 });
@@ -160,7 +162,30 @@ class routesController {
   }
   // 添加商品类型
   addType(req, res) {
-    res.send("添加商品类型成功")
+    // 生成typeId
+    let typeId = "_t" + new Date().getTime();
+    // 为类型模型添加数据
+    createData("Type", { typeId, typeName: req.body.typeName, userId: req.userId }).then(result => {
+      res.send({ msg: "成功", code: 200, result })
+    }).catch(err => {
+      console.log('err', err);
+      res.send({ msg: "失败", code: 201 })
+    })
+  }
+
+
+  findTypeDate(req, res) {
+    // AND `type_name` LIKE '%品%'
+    let sql = "SELECT * FROM `type` WHERE `user_id` = :userId LIMIT :offset,:count";
+    query(sql, {
+      userId: req.userId,
+      count: Number(req.query.count),
+      offset: Number(req.query.offset),
+    }).then(result => {
+      res.send({ msg: "查询商品类型数据成功", code: 200, result })
+    }).catch(err => {
+      res.send({ msg: "查询失败", code: 201 })
+    })
   }
 }
 module.exports = new routesController();

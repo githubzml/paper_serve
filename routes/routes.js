@@ -38,4 +38,6 @@ module.exports = (app) => {
   app.post('/userInfo', routerController.getUserInfo);
   //  增加商品类型
   app.post('/addType', routerController.addType);
+  // 查询商品类型数据
+  app.get("/findTypeDate", routerController.findTypeDate);
 }

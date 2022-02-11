@@ -38,6 +38,15 @@ type.init({
     // 备注
     comment: "类型名称"
   },
+  // 关联用户id防止信息丢失
+  userId: {
+    type: DataTypes.STRING(30),
+    // 不能为Null
+    allowNull: false,
+    defaultValue: "",
+    // 备注
+    comment: "用户Id"
+  },
   // status 0 禁用 1启用
   status: {
     type: DataTypes.BOOLEAN,
