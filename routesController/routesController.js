@@ -9,6 +9,13 @@ const { Op, Sequelize } = require("sequelize");
 let { codeList, tokenList } = require("../whiteList/whiteList");
 
 let moment = require("moment");
+
+
+
+// 引入配置文件
+const alipaysdk = require("../db/alipay");
+const AlipayFormData = require("alipay-sdk/lib/form").default;
+
 class routesController {
   // 经过这个层
   validCode(req, res, next) {
@@ -176,7 +183,15 @@ class routesController {
 
   findTypeDate(req, res) {
     // AND `type_name` LIKE '%品%'
-    let sql = "SELECT * FROM `type` WHERE `user_id` = :userId LIMIT :offset,:count";
+    let sql = "SELECT * FROM `type` WHERE `user_id` = :userId ";
+
+    // 带条件查询
+    if (req.query.typeName) {
+      sql += " AND `type_name` LIKE '%" + req.query.typeName + "%'";
+    }
+
+    sql += " LIMIT :offset,:count";
+
     query(sql, {
       userId: req.userId,
       count: Number(req.query.count),
@@ -186,6 +201,34 @@ class routesController {
     }).catch(err => {
       res.send({ msg: "查询失败", code: 201 })
     })
+  }
+  //支付部分
+  startPay(req, res) {
+
+    const formData = new AlipayFormData();
+    // 调用 setMethod 并传入 get，会返回可以跳转到支付页面的 url
+    formData.setMethod('get');
+    // 配置信息
+    formData.addField('bizContent', {
+      outTradeNo: 'out_trade_no', //订单号
+      productCode: 'FAST_INSTANT_TRADE_PAY', //固定不变的
+      totalAmount: '0.01', //价格
+      subject: '商品0217', //商品名称
+      body: '商品详情2022-02-17', //商品描述
+    });
+
+    formData.addField('returnUrl', 'http://localhost:8081/#/pay');
+
+    const result = alipaysdk.exec(
+      'alipay.trade.page.pay',
+      {},
+      { formData: formData },
+    );
+    // 对接支付宝成功 支付宝返回的数据
+    result.then(resp => {
+      res.send({ code: 200, success: true, msg: "支付中", paymentUrl: resp })
+    })
+
   }
 }
 module.exports = new routesController();

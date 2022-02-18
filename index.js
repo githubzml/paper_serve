@@ -7,6 +7,7 @@ const path = require("path");
 
 const ejs = require("ejs");
 
+
 // 保存基本的绝对路径
 // console.log('__dirname', __dirname);
 global.__basename = __dirname

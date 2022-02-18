@@ -40,4 +40,8 @@ module.exports = (app) => {
   app.post('/addType', routerController.addType);
   // 查询商品类型数据
   app.get("/findTypeDate", routerController.findTypeDate);
+
+  // 发起支付
+  app.post("/startPay", routerController.startPay);
+
 }
