@@ -6,8 +6,11 @@ let User = require("./user");
 let Code = require("./code");
 // 商品类型
 let Type = require("./type");
+
+let Product = require("./product");
 module.exports = {
   User,
   Code,
-  Type
+  Type,
+  Product
 }

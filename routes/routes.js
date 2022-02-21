@@ -44,4 +44,6 @@ module.exports = (app) => {
   // 发起支付
   app.post("/startPay", routerController.startPay);
 
+  // 获取所有商品数据类型
+  app.get("/typeAll", routerController.getTypeAll);
 }

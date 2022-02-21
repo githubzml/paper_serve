@@ -230,5 +230,14 @@ class routesController {
     })
 
   }
+
+  // 查询所有商品类型
+  getTypeAll(req, res) {
+    findData("Type", { userId: req.userId }).then(result => {
+      res.send({ code: 200, msg: "查询所有商品类型成功", result })
+    }).catch(err => {
+      res.send({ code: 201, msg: "失败" })
+    })
+  }
 }
 module.exports = new routesController();

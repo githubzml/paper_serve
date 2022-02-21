@@ -7,5 +7,6 @@ exports.codeList = [
 exports.tokenList = [
   "/userInfo",
   "/addType",
-  "/findTypeDate"
+  "/findTypeDate",
+  "/typeAll"
 ];
