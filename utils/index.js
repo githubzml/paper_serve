@@ -3,6 +3,9 @@ let crypto = require("crypto");
 
 let nodemailer = require("nodemailer");
 
+// 导入文件模块
+let fs = require("fs");
+
 // 创建发邮件配置
 var transporter = nodemailer.createTransport({
   // 主机
@@ -58,6 +61,25 @@ class Utils {
 
   verifyToken(value, fn) {
     return jsonwebtoken.verify(value, "_tsalt", fn)
+  }
+
+  uploadImg(file) {
+    // file.type 
+    // file.base64
+    return new Promise((resolve, reject) => {
+      // 将base64 转化为二进制文件
+      let buff = Buffer.from(file.base64, "base64");
+      // 文件名
+      let filename = "_p" + Math.random().toString().slice(2) + "." + file.type;
+
+      fs.writeFile(__basename + "/upload/" + filename, buff, err => {
+        if (err) {
+          reject({ msg: "上传文件失败", code: 1021 })
+        } else {
+          resolve({ msg: "上传文件成功", code: 1020, filename })
+        }
+      })
+    })
   }
 }
 

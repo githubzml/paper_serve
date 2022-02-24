@@ -46,4 +46,8 @@ module.exports = (app) => {
 
   // 获取所有商品数据类型
   app.get("/typeAll", routerController.getTypeAll);
+
+  // 发布商品类型
+  app.post("/addProduct", routerController.addProduct);
+
 }

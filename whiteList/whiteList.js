@@ -8,5 +8,6 @@ exports.tokenList = [
   "/userInfo",
   "/addType",
   "/findTypeDate",
-  "/typeAll"
+  "/typeAll",
+  "/addProduct"
 ];

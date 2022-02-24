@@ -1,6 +1,6 @@
 // 路由控制器
 
-let { encodingString, sendEmail, signToken, verifyToken } = require("../utils");
+let { encodingString, sendEmail, signToken, verifyToken, uploadImg } = require("../utils");
 let { createData, findData, query } = require("../api/api");
 
 // 操作符
@@ -237,6 +237,70 @@ class routesController {
       res.send({ code: 200, msg: "查询所有商品类型成功", result })
     }).catch(err => {
       res.send({ code: 201, msg: "失败" })
+    })
+  }
+
+  // 添加商品
+  addProduct(req, res) {
+    // 图片不能上传过大
+    // let data = req.body;
+    // dimg
+    // img
+    // data:image/png;base64,
+    // 获取商品图片
+    // 替换掉标记符
+    let dimgbase64 = req.body.dimg.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
+    let dimgType = req.body.dimg.split(";")[0].split("/")[1];
+
+    let imgbase64 = req.body.img.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
+    let imgType = req.body.img.split(";")[0].split("/")[1];
+
+    Promise.all([
+      // 等待上传完毕所有图片之后 再将商品数据写入数据库
+      uploadImg(
+        // 任务1 商品图片
+        {
+          base64: imgbase64,
+          type: imgType
+        },
+      ),
+      // 等待上传完毕所有图片之后 再将商品数据写入数据库
+      uploadImg(
+        // 任务2 详情图片
+        {
+          base64: dimgbase64,
+          type: dimgType
+        },
+      )
+    ]).then(result => {
+
+      req.body.img = "http://localhost:/3000" + result[0].filename;
+      req.body.dimg = "http://localhost:/3000" + result[1].filename;
+
+      // 移除多于属性
+      delete req.body.token;
+
+      // req.body.price = Number(req.body.price);
+      // req.body.count = Number(req.body.count);
+      // req.body.status = Number(req.body.status);
+      // // 生成一个商品Pid属性
+      // req.body.pid = "_p" + new Date().getTime();
+
+      // req.body.userId = req.userId;
+
+      // desc
+
+      // name
+
+      // price
+
+      // typeId
+
+
+      res.send("发布商品ok");
+    }).catch(err => {
+      console.log('err');
+      res.send("发布商品失败");
     })
   }
 }

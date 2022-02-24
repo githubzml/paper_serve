@@ -43,7 +43,10 @@ app.engine(".html", ejs.__express);
 // 导入body
 let bodyParser = require("body-parser");
 
-app.use(bodyParser.json());
+// limit 最大请求体的大小
+app.use(bodyParser.json({
+  limit: "2048kb"
+}));
 
 // 登录验证
 app.use((req, res, next) => {
