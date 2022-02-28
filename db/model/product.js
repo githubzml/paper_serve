@@ -88,6 +88,13 @@ Product.init({
     allowNull: false,
     defaultValue: "",
     comment: "商品描述"
+  },
+  // 商品地址
+  region: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+    comment: "商品位于哪一单元"
   }
 }, {
   modelName: 'product',

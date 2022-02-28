@@ -50,4 +50,7 @@ module.exports = (app) => {
   // 发布商品类型
   app.post("/addProduct", routerController.addProduct);
 
+  // 修改用户头像
+  app.post("/uploadUserImg", routerController.uploadUserImg);
+
 }

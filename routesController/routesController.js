@@ -249,11 +249,11 @@ class routesController {
     // data:image/png;base64,
     // 获取商品图片
     // 替换掉标记符
-    let dimgbase64 = req.body.dimg.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
-    let dimgType = req.body.dimg.split(";")[0].split("/")[1];
+    let dimgbase64 = req.body.pdimg.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
+    let dimgType = req.body.pdimg.split(";")[0].split("/")[1];
 
-    let imgbase64 = req.body.img.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
-    let imgType = req.body.img.split(";")[0].split("/")[1];
+    let imgbase64 = req.body.pimg.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
+    let imgType = req.body.pimg.split(";")[0].split("/")[1];
 
     Promise.all([
       // 等待上传完毕所有图片之后 再将商品数据写入数据库
@@ -274,33 +274,51 @@ class routesController {
       )
     ]).then(result => {
 
-      req.body.img = "http://localhost:/3000" + result[0].filename;
-      req.body.dimg = "http://localhost:/3000" + result[1].filename;
+      req.body.pimg = "http://localhost:3000/" + result[0].filename;
+      req.body.pdimg = "http://localhost:3000/" + result[1].filename;
 
       // 移除多于属性
       delete req.body.token;
 
-      // req.body.price = Number(req.body.price);
-      // req.body.count = Number(req.body.count);
-      // req.body.status = Number(req.body.status);
-      // // 生成一个商品Pid属性
-      // req.body.pid = "_p" + new Date().getTime();
+      // 转化为数值类型
+      req.body.price = Number(req.body.price);
 
-      // req.body.userId = req.userId;
+      // 生成一个商品pid属性
 
-      // desc
-
-      // name
-
-      // price
-
-      // typeId
+      req.body.pId = "_p" + new Date().getTime();
 
 
-      res.send("发布商品ok");
+      req.body.userId = req.userId;
+      //  将商品数据写入Product模型里面
+      console.log(123, req.body);
+
+      createData("Product", req.body).then(result => {
+        res.send({ msg: "发布商品ok", code: 200, result });
+      }).catch(err => {
+        res.send({ msg: "发布商品失败", code: 201 });
+      })
     }).catch(err => {
       console.log('err');
       res.send("发布商品失败");
+    })
+  }
+
+  // 上传用户头像
+  uploadUserImg(req, res) {
+    let base64 = req.body.base64.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
+    let type = req.body.base64.split(";")[0].split("/")[1];
+
+    // 替换头像
+    
+    uploadImg(
+      {
+        base64,
+        type:
+      },
+    ).then(result => {
+      res.send("userImg,Ok");
+    }).catch(err => {
+      res.send("userImg,defeat");
     })
   }
 }

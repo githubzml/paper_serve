@@ -9,5 +9,6 @@ exports.tokenList = [
   "/addType",
   "/findTypeDate",
   "/typeAll",
-  "/addProduct"
+  "/addProduct",
+  "/uploadUserImg"
 ];
