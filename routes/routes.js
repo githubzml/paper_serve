@@ -53,4 +53,9 @@ module.exports = (app) => {
   // 修改用户头像
   app.post("/uploadUserImg", routerController.uploadUserImg);
 
+  // 修改用户昵称
+  app.post("/updateNickName", routerController.updateNickName);
+
+  // 修改用户密码
+  app.post("/updatePwd", routerController.updatePwd);
 }

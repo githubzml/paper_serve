@@ -25,6 +25,15 @@ class API {
       type: sequelize.QueryTypes.SELECT
     })
   }
+  // 更新数据的方法
+  updateData(modelName,values,condition){
+    // modelName 模型名称
+    // values 更新数据
+    // condition 查询条件
+    return Model[modelName].update(values,{
+      where:condition
+    });
+  }
 }
 
 module.exports = new API;

@@ -1,7 +1,7 @@
 // 路由控制器
 
 let { encodingString, sendEmail, signToken, verifyToken, uploadImg } = require("../utils");
-let { createData, findData, query } = require("../api/api");
+let { createData, findData, query, updateData } = require("../api/api");
 
 // 操作符
 const { Op, Sequelize } = require("sequelize");
@@ -308,17 +308,69 @@ class routesController {
     let base64 = req.body.base64.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
     let type = req.body.base64.split(";")[0].split("/")[1];
 
+
     // 替换头像
-    
     uploadImg(
       {
         base64,
-        type:
+        type
       },
     ).then(result => {
-      res.send("userImg,Ok");
+      let url = "http://localhost:3000/" + result.filename;
+      // 当用户id等于时 我就修改
+      updateData("User",
+        { url },
+        {
+          userId: req.userId
+        }).then(result => {
+          res.send({ msg: "更新成功", code: 200 });
+        }).catch(err => {
+          res.send({ msg: "更新失败", code: 201 });
+        })
     }).catch(err => {
       res.send("userImg,defeat");
+    })
+  }
+
+  // 修改用户昵称
+  updateNickName(req, res) {
+    updateData("User",
+      { nickname: req.body.nickname },
+      {
+        userId: req.userId
+      }).then(result => {
+        res.send({ msg: "更新成功", code: 200 });
+      }).catch(err => {
+        res.send({ msg: "更新失败", code: 201 });
+      })
+  }
+
+  // 修改用户密码
+  updatePwd(req, res) {
+    // 查询用户密码
+    findData("User", { userId: req.userId }, ['password']).then(result => {
+      if (result.length) {
+        // 验证旧密码是否正确
+        let { oldPassword, newPassword } = req.body
+        let ps = encodingString(oldPassword);
+        if (ps == result[0].dataValues.password) {
+          updateData("User", {
+            password: newPassword
+          }, {
+            userId: req.userId
+          }).then(result => {
+            res.send({ code: 200, msg: "修改用户密码成功" })
+          }).catch(err => {
+            console.log('err', err);
+          })
+        } else {
+          res.send({ code: 201, msg: "旧密码不正确" })
+        }
+      } else {
+        res.send({ code: 201, msg: "修改用户密码失败" })
+      }
+    }).catch(err => {
+      console.log('err', err);
     })
   }
 }
