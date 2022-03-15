@@ -293,7 +293,7 @@ class routesController {
       console.log(123, req.body);
 
       createData("Product", req.body).then(result => {
-        res.send({ msg: "发布商品ok", code: 200, result });
+        res.send({ msg: "发布商品成功", code: 200, result });
       }).catch(err => {
         res.send({ msg: "发布商品失败", code: 201 });
       })
