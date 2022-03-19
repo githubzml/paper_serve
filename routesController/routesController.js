@@ -353,9 +353,12 @@ class routesController {
         // 验证旧密码是否正确
         let { oldPassword, newPassword } = req.body
         let ps = encodingString(oldPassword);
+
+        let psNewPassword = encodingString(newPassword);
+
         if (ps == result[0].dataValues.password) {
           updateData("User", {
-            password: newPassword
+            password: psNewPassword
           }, {
             userId: req.userId
           }).then(result => {
@@ -372,6 +375,23 @@ class routesController {
     }).catch(err => {
       console.log('err', err);
     })
+  }
+
+  // 找回密码
+  findPassword(req, res) {
+    let { email, password } = req.body;
+    let apassword = encodingString(password);
+    updateData("User", {
+      password: apassword
+    }, {
+      email: email
+    }).then(result => {
+      res.send({ code: 200, msg: "找回密码成功" })
+    }).catch(err => {
+      console.log('err', err);
+      res.send("找回密码失败")
+    })
+
   }
 }
 module.exports = new routesController();

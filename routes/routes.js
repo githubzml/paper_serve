@@ -58,4 +58,8 @@ module.exports = (app) => {
 
   // 修改用户密码
   app.post("/updatePwd", routerController.updatePwd);
+
+  // 找回密码
+  app.post("/findPassword", routerController.findPassword);
+
 }

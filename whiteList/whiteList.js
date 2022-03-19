@@ -12,5 +12,5 @@ exports.tokenList = [
   "/addProduct",
   "/uploadUserImg",
   "/updateNickName",
-  "/updatePwd"
+  "/updatePwd",
 ];
