@@ -62,4 +62,7 @@ module.exports = (app) => {
   // 找回密码
   app.post("/findPassword", routerController.findPassword);
 
+
+  app.post("/findCommodity", routerController.findCommodity);
+
 }
