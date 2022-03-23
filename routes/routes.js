@@ -65,4 +65,11 @@ module.exports = (app) => {
 
   app.post("/findCommodity", routerController.findCommodity);
 
+
+  // ==================================================================
+
+  app.get("/getHomeImg", routerController.getHomeImg);
+
+
+
 }

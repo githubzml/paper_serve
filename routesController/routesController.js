@@ -402,5 +402,17 @@ class routesController {
       res.send({ code: 201, msg: "失败" })
     })
   }
+
+  // ===========================================================================
+
+  // 获取首页数据
+  getHomeImg(req, res) {
+    findData("Lunbo", {}).then(result => {
+      console.log("result", result);
+      res.send({ code: 200, msg: "获取首页轮播数据", result })
+    }).catch(err => {
+      res.send({ code: 201, msg: "失败" })
+    })
+  }
 }
 module.exports = new routesController();

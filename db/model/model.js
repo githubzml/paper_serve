@@ -8,9 +8,13 @@ let Code = require("./code");
 let Type = require("./type");
 
 let Product = require("./product");
+
+let Lunbo = require("../esjy/lunbo");
 module.exports = {
   User,
   Code,
   Type,
-  Product
+  Product,
+
+  Lunbo
 }
