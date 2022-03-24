@@ -407,11 +407,20 @@ class routesController {
 
   // 获取首页数据
   getHomeImg(req, res) {
-    findData("Lunbo", {}).then(result => {
-      console.log("result", result);
-      res.send({ code: 200, msg: "获取首页轮播数据", result })
+    let sql = "SELECT * FROM `lunbo`";
+    query(sql).then(result => {
+      res.send({ msg: "查询商品类型数据成功", code: 200, result })
     }).catch(err => {
-      res.send({ code: 201, msg: "失败" })
+      res.send({ msg: "查询失败", code: 201 })
+    })
+
+  }
+  getHomeList(req, res) {
+    let sql2 = "SELECT * FROM `lists`";
+    query(sql2).then(result => {
+      res.send({ msg: "查询商品类型数据成功", code: 200, result })
+    }).catch(err => {
+      res.send({ msg: "查询失败", code: 201 })
     })
   }
 }

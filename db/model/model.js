@@ -9,6 +9,7 @@ let Type = require("./type");
 
 let Product = require("./product");
 
+let Lists = require("../esjy/list");
 let Lunbo = require("../esjy/lunbo");
 module.exports = {
   User,
@@ -16,5 +17,6 @@ module.exports = {
   Type,
   Product,
 
-  Lunbo
+  Lunbo,
+  Lists
 }
