@@ -413,11 +413,21 @@ class routesController {
     }).catch(err => {
       res.send({ msg: "查询失败", code: 201 })
     })
-
   }
+  // 获取首页下方列表数据
   getHomeList(req, res) {
     let sql2 = "SELECT * FROM `lists`";
     query(sql2).then(result => {
+      res.send({ msg: "查询商品类型数据成功", code: 200, result })
+    }).catch(err => {
+      res.send({ msg: "查询失败", code: 201 })
+    })
+  }
+  // 获取详情页数据
+  getDetail(req, res) {
+    let { id, content } = req.body;
+    let sql = 'select * from lists where id = ' + id;
+    query(sql).then(result => {
       res.send({ msg: "查询商品类型数据成功", code: 200, result })
     }).catch(err => {
       res.send({ msg: "查询失败", code: 201 })

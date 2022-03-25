@@ -81,7 +81,14 @@ Lists.init({
         allowNull: false,
         defaultValue: "0",
         comment: "是否删除"
-    }
+    },
+    // 商品类型
+    stype: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "",
+        comment: "商品类型"
+    },
 }, {
     modelName: 'lists',
     // 是否添加时间戳属性

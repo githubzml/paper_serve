@@ -71,4 +71,6 @@ module.exports = (app) => {
   app.get("/getHomeImg", routerController.getHomeImg);
 
   app.get("/getHomeList", routerController.getHomeList);
+
+  app.post("/getDetail", routerController.getDetail);  
 }
