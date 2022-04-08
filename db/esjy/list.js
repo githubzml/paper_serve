@@ -89,6 +89,13 @@ Lists.init({
         defaultValue: "",
         comment: "商品类型"
     },
+    // 商品数量
+    scount: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+        defaultValue: 1,
+        comment: "商品数量"
+    }
 }, {
     modelName: 'lists',
     // 是否添加时间戳属性

@@ -163,7 +163,6 @@ class routesController {
     }, ['nickname', 'url']).then(result => {
       res.send({ msg: "查询用户信息成功", code: 200, result });
     }).catch(err => {
-      console.log('err', err);
       res.send({ msg: "查询用户信息失败", code: 201 });
     })
   }
@@ -175,7 +174,6 @@ class routesController {
     createData("Type", { typeId, typeName: req.body.typeName, userId: req.userId }).then(result => {
       res.send({ msg: "成功", code: 200, result })
     }).catch(err => {
-      console.log('err', err);
       res.send({ msg: "失败", code: 201 })
     })
   }
@@ -290,7 +288,6 @@ class routesController {
 
       req.body.userId = req.userId;
       //  将商品数据写入Product模型里面
-      console.log(123, req.body);
 
       createData("Product", req.body).then(result => {
         res.send({ msg: "发布商品成功", code: 200, result });
@@ -298,7 +295,6 @@ class routesController {
         res.send({ msg: "发布商品失败", code: 201 });
       })
     }).catch(err => {
-      console.log('err');
       res.send("发布商品失败");
     })
   }
@@ -364,7 +360,7 @@ class routesController {
           }).then(result => {
             res.send({ code: 200, msg: "修改用户密码成功" })
           }).catch(err => {
-            console.log('err', err);
+            // console.log('err', err);
           })
         } else {
           res.send({ code: 201, msg: "旧密码不正确" })
@@ -388,7 +384,6 @@ class routesController {
     }).then(result => {
       res.send({ code: 200, msg: "找回密码成功" })
     }).catch(err => {
-      console.log('err', err);
       res.send("找回密码失败")
     })
 
@@ -432,6 +427,17 @@ class routesController {
     }).catch(err => {
       res.send({ msg: "查询失败", code: 201 })
     })
+  }
+  // 更新接口
+  updateDetailCount(req, res) {
+    let { id, count } = req.body;
+    updateData("Lists",
+      { scount: Number(count) },
+      { id: Number(id) }).then(result => {
+        res.send({ msg: "加入购物车成功", code: 200 });
+      }).catch(err => {
+        res.send({ msg: "更新失败", code: 201 });
+      })
   }
 }
 module.exports = new routesController();

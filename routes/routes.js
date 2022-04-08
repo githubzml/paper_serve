@@ -72,5 +72,9 @@ module.exports = (app) => {
 
   app.get("/getHomeList", routerController.getHomeList);
 
-  app.post("/getDetail", routerController.getDetail);  
+  app.post("/getDetail", routerController.getDetail);
+
+  app.post("/updateDetailCount", routerController.updateDetailCount);
+
+
 }
