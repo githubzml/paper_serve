@@ -89,6 +89,13 @@ Lists.init({
         defaultValue: "",
         comment: "商品类型"
     },
+    // 商品类型中文
+    enType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "",
+        comment: "商品类型中文"
+    },
     // 商品数量
     scount: {
         type: DataTypes.DECIMAL,
