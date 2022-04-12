@@ -76,5 +76,6 @@ module.exports = (app) => {
 
   app.post("/updateDetailCount", routerController.updateDetailCount);
 
-
+  app.post("/getQg", routerController.getQg);
+  app.get("/queryQg", routerController.queryQg);
 }

@@ -439,5 +439,36 @@ class routesController {
         res.send({ msg: "更新失败", code: 201 });
       })
   }
+  // 增加求购信息
+  getQg(req, res) {
+    let { nicheng, lianxi, desc } = req.body;
+    nicheng = nicheng.toString();
+    lianxi = lianxi.toString();
+    desc = desc.toString();
+    console.log("ccc", nicheng, lianxi, desc);
+    createData("Qg", {
+      nicheng, lianxi, desc
+    }).then(result => {
+      res.send({ msg: "加入求购信息成功", code: 200 });
+    }).catch(err => {
+      res.send({ msg: "更新失败", code: 201 });
+    })
+  }
+  // 查询求购信息
+  queryQg(req, res) {
+    if (Object.keys(req.query).length) {
+      findData("Qg", { id: req.query.id.toString() }).then(result => {
+        res.send({ msg: "查询求购信息成功", code: 200, result });
+      }).catch(err => {
+        res.send({ msg: "查询求购信息失败", code: 201 });
+      })
+    } else {
+      findData("Qg").then(result => {
+        res.send({ msg: "查询求购信息成功", code: 200, result });
+      }).catch(err => {
+        res.send({ msg: "查询求购信息失败", code: 201 });
+      })
+    }
+  }
 }
 module.exports = new routesController();
