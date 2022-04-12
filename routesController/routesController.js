@@ -208,7 +208,7 @@ class routesController {
     formData.setMethod('get');
     // 配置信息
     formData.addField('bizContent', {
-      outTradeNo: 'out_trade_no_2', //订单号 这个是动态的 开发测试中要记得更改值
+      outTradeNo: 'out_trade_no_3', //订单号 这个是动态的 开发测试中要记得更改值
       productCode: 'FAST_INSTANT_TRADE_PAY', //固定不变的
       totalAmount: '0.01', //价格
       subject: '商品0217', //商品名称
