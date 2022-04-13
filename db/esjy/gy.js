@@ -1,11 +1,12 @@
-// 获取模型类 求购
+
+// 获取模型类
 
 const { DataTypes, Model } = require('sequelize');
 
 // 创建user模型 继承Model
-class Qg extends Model { }
+class Gy extends Model { }
 // 两个参数 表字段 配置
-Qg.init({
+Gy.init({
     // 表id
     id: {
         //数据类型 整形 无符号 
@@ -19,32 +20,45 @@ Qg.init({
         // 备注
         comment: "表Id"
     },
-
-    nicheng: {
-        type: DataTypes.STRING(50),
+    // 商品名称
+    pname: {
+        type: DataTypes.STRING(20),
         // 不能为Null
         allowNull: false,
         defaultValue: "",
         // 备注
-        comment: "昵称"
+        comment: "商品名称"
     },
-    lianxi: {
-        type: DataTypes.STRING(50),
-        // 不能为Null
-        allowNull: false,
-        defaultValue: "",
-        // 备注
-        comment: "联系方式"
-    },
-    // 求购描述
+    // 商品描述
     desc: {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "",
-        comment: "求购描述"
+        comment: "商品描述"
+    },
+    // 联系人
+    people: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "",
+        comment: "联系人"
+    },
+    // 联系电话
+    lianxi: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "",
+        comment: "联系电话"
+    },
+    // 商品图片
+    pimg: {
+        type: DataTypes.STRING(120),
+        allowNull: false,
+        defaultValue: "",
+        comment: "商品图片"
     },
 }, {
-    modelName: 'qg',
+    modelName: 'gy',
     // 是否添加时间戳属性
     timestamps: true,
     // 逻辑删除      物理删除
@@ -60,7 +74,7 @@ Qg.init({
 
 // force:true
 // force:false 如果存在则不创建新表 否则创建新表
-Qg.sync({ force: false });
+Gy.sync({ force: false });
 
 // 导出模型
-module.exports = Qg;
+module.exports = Gy;

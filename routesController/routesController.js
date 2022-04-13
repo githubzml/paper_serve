@@ -1,7 +1,7 @@
 // 路由控制器
 
 let { encodingString, sendEmail, signToken, verifyToken, uploadImg } = require("../utils");
-let { createData, findData, query, updateData } = require("../api/api");
+let { createData, findData, query, updateData, deleteData } = require("../api/api");
 
 // 操作符
 const { Op, Sequelize } = require("sequelize");
@@ -469,6 +469,66 @@ class routesController {
         res.send({ msg: "查询求购信息失败", code: 201 });
       })
     }
+  }
+
+  putGy(req, res) {
+    let { pname, desc, people, lianxi, pimg } = req.body;
+
+    let imgbase64 = pimg.replace(/data:image\/[a-z]+;base64/, '').replace(/ /g, "+");
+    let imgType = pimg.split(";")[0].split("/")[1];
+
+    uploadImg(
+      {
+        base64: imgbase64,
+        type: imgType
+      },
+    ).then(result => {
+      let url = "http://localhost:3000/" + result.filename;
+
+      createData("Gy", {
+        pname, desc, people, lianxi, pimg: url
+      }).then(result => {
+        res.send({ msg: "增加公益信息成功", code: 200, result });
+      }).catch(err => {
+        res.send({ msg: "更新失败", code: 201 });
+      })
+
+    }).catch(err => {
+      res.send("userImg,defeat");
+    })
+  }
+
+  delGy(req, res) {
+    console.log(222, req.body.id);
+    deleteData("Gy", { id: Number(req.body.id) }).then(result => {
+      res.send({ msg: "删除公益信息", code: 200, result });
+    }).catch(err => {
+      res.send({ msg: "更新失败", code: 201 });
+    })
+  }
+
+  updateGy(req, res) {
+    let { pname, desc, people, lianxi, id } = req.body;
+
+    updateData("Gy",
+      { pname, desc, people, lianxi },
+      { id: Number(id) }).then(result => {
+        res.send({ msg: "修改公益信息成功", code: 200, result });
+      }).catch(err => {
+        res.send({ msg: "更新失败", code: 201 });
+      })
+  }
+
+  getGy(req, res) {
+    let obj = {};
+    if (Object.keys(req.query).length) {
+      obj.id = req.query.id;
+    }
+    findData("Gy", obj).then(result => {
+      res.send({ msg: "查询公益信息成功", code: 200, result });
+    }).catch(err => {
+      res.send({ msg: "查询求购信息失败", code: 201 });
+    })
   }
 }
 module.exports = new routesController();

@@ -78,4 +78,13 @@ module.exports = (app) => {
 
   app.post("/getQg", routerController.getQg);
   app.get("/queryQg", routerController.queryQg);
+
+  // 公益-查询公益信息
+  app.get("/getGy", routerController.getGy);
+  // 公益-修改公益信息
+  app.post("/updateGy", routerController.updateGy);
+  // 公益-增加公益信息
+  app.post("/putGy", routerController.putGy);
+  // 公益-删除公益信息
+  app.post("/delGy", routerController.delGy);
 }

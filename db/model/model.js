@@ -12,6 +12,7 @@ let Product = require("./product");
 let Lists = require("../esjy/list");
 let Lunbo = require("../esjy/lunbo");
 let Qg = require("../esjy/qg");
+let Gy = require("../esjy/gy");
 module.exports = {
   User,
   Code,
@@ -20,5 +21,6 @@ module.exports = {
 
   Lunbo,
   Lists,
-  Qg
+  Qg,
+  Gy
 }

@@ -26,12 +26,20 @@ class API {
     })
   }
   // 更新数据的方法
-  updateData(modelName,values,condition){
+  updateData(modelName, values, condition) {
     // modelName 模型名称
     // values 更新数据
     // condition 查询条件
-    return Model[modelName].update(values,{
-      where:condition
+    return Model[modelName].update(values, {
+      where: condition
+    });
+  }
+  // 删除数据的方法
+  deleteData(modelName, condition) {
+    // modelName 模型名称
+    // condition 查询条件
+    return Model[modelName].destroy({
+      where: condition
     });
   }
 }
